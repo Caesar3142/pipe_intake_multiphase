@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  11
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "alpha.water.*"
+    {
+        nAlphaCorr      2;
+        nAlphaSubCycles 1;
+
+        MULESCorr       yes;
+        nLimiterIter    3;
+        alphaApplyPrevCorr yes;
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-8;
+        relTol          0;
+        minIter         5;
+    }
+
+    "pcorr.*"
+    {
+        solver          GAMG;
+        smoother        DIC;
+        tolerance       1e-4;
+        relTol          0.01;
+    }
+
+    p_rgh
+    {
+        solver          GAMG;
+        smoother        DIC;
+        tolerance       1e-7;
+        relTol          0.001;
+    };
+
+    p_rghFinal
+    {
+        $p_rgh;
+        tolerance       5e-9;
+        relTol          0;
+    }
+
+    "(U|k|omega).*"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        nSweeps         1;
+        tolerance       1e-6;
+        relTol          0.1;
+    };
+}
+
+PIMPLE
+{
+    momentumPredictor yes;
+    nOuterCorrectors    1;
+    nCorrectors     3;
+    nNonOrthogonalCorrectors 0;
+}
+
+relaxationFactors
+{
+    equations
+    {
+        ".*" 0.8;
+    }
+}
+
+// ***************************caesar_wiratama_2023************************** //
+// ************************************************************************* //
