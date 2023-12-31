@@ -1,4 +1,4 @@
-This is the setup and running steps:
+This are the setup and running steps:
 #1. blockMesh --> edit constant/polyMesh/boundary --> edit defaultFaces "empty" to "wall" (i have an issue to define the pipe wall boundary, so i need to edit it manualy)
 #2. setField
 #3. decomposePar --> please edit system/decomposePar with your own hardware preference
