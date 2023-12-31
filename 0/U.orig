@@ -17,20 +17,20 @@ dimensions      [0 1 -1 0 0 0 0];
 
 internalField   uniform (0 0 0);
 
-w 0.1;
-vdot 0.007853*w;
-
 boundaryField
 {
     front
     {
         type            flowRateInletVelocity;
-        volumetricFlowRate constant $vdot;
+        massFlowRate constant 0.5;
+	rhoInlet	1000;
     }
 
     "side_wall|bottom|defaultFaces"
     {
-        type            noSlip;
+        type            uniformFixedValue;
+	uniformValue	constant (0 0 0);
+	value		uniform (0 0 0);
     }
 
     top
@@ -41,14 +41,16 @@ boundaryField
 
     inlet
     {
-        type            uniformFixedValue;
-        uniformValue	table
-        	(
-        	    (0 (0 0 0))
-       		    (1 (0 0 $w))
-      		    (10 (0 0 $w))
-		);
-        value           $internalField;
+	//type			swirlInletVelocity;
+	//axis			(0 0 1);
+	//origin			(0 0 0);
+	//axialVelocity		constant 0.1;
+	//radialVelocity		constant 0;
+	//tangentialVelocity	constant 1;
+	type            swirlFlowRateInletVelocity;
+        flowRate	constant 	-0.0005;
+	rpm		constant	1000;
+	value		uniform 	(0 0 0);
     }
 }
 

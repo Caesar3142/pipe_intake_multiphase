@@ -22,7 +22,7 @@ startFrom       startTime;
 
 startTime       0;
 
-stopAt          endTime;
+stopAt          endTime; //writeNow; 
 
 endTime         100;
 

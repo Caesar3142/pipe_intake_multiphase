@@ -24,7 +24,7 @@ regions
 (
     boxToCell
     {
-        box (0 -0.15 0) (1 0.15 0.15);
+        box (-0.15 -0.15 0) (1 0.15 0.15);
         fieldValues
         (
             volScalarFieldValue alpha.water 1
